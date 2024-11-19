@@ -6,7 +6,7 @@ import { getErrorMessage } from '../../../helpers/index.js';
 
 const auth_resolvers = {
   Query: {
-    getUser: async (_: any, __: any, { req }: { req: Request }) => {
+    getUser: async (_: any, __: any, { req }: { req: Request }): Promise<{ user: any | null }> => {
       const user_id = getUserId(req);
 
       if (!user_id) {

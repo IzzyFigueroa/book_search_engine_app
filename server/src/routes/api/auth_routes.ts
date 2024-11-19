@@ -1,5 +1,5 @@
 import express from 'express';
-import { auth_resolvers } from '../../models/schemas/resolvers/auth_resolvers.js';
+import { registerUser, loginUser, logoutUser, getUser } from '../../models/schemas/resolvers/auth_resolvers.js';
 
 const router = express.Router();
 

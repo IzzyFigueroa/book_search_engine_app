@@ -17,9 +17,9 @@ const user_resolvers = {
       // Return just the user's books array, not the user object
       return user?.savedBooks;
     }
-  },
+    },
 
-  Mutation: {
+    Mutation: {
      saveBook: async (_: any, { book }: { book: any }, { req }: { req: any }) => {
       try {
         await User.findOneAndUpdate(
