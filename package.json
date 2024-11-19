@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
+    "@vitejs/plugin-react": "^4.3.3",
+    "bootstrap": "^5.3.3",
     "react-bootstrap": "^2.10.5",
     "react-router-dom": "^6.28.0"
   }

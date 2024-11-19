@@ -1,6 +1,6 @@
-import User from '../../../models/User.js';
-import { signToken, getUserId } from '../../../services/auth.js';
-import { getErrorMessage } from '../../../helpers/index.js';
+import User from '../../models/User.js';
+import { signToken, getUserId } from '../../services/auth.js';
+import { getErrorMessage } from '../../helpers/index.js';
 const auth_resolvers = {
     Query: {
         getUser: async (_, __, { req }) => {
