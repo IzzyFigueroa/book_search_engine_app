@@ -18,8 +18,9 @@ const user_resolvers = {
       return user?.savedBooks;
     }
   },
+
   Mutation: {
-    saveBook: async (_: any, { book }: { book: any }, { req }: { req: any }) => {
+     saveBook: async (_: any, { book }: { book: any }, { req }: { req: any }) => {
       try {
         await User.findOneAndUpdate(
           { _id: req.user_id },
