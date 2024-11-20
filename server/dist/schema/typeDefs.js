@@ -18,8 +18,7 @@ const typeDefs = gql `
     }
 
     type Response {
-        user: User
-        message: String
+    user: User
     }
 
     type Query {

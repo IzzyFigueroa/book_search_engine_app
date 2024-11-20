@@ -1,8 +1,12 @@
 import type { Request, Response } from 'express';
+// import jwt from 'jsonwebtoken';
 import { Types } from 'mongoose';
 import User from '../../models/User.js';
 import { signToken, getUserId } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
+import { GraphQLError } from 'graphql';
+
+// const { sign } = jwt;
 
 const auth_resolvers = {
   Query: {
@@ -29,24 +33,29 @@ const auth_resolvers = {
     }
   },
   Mutation: {
-    registerUser: async (_: any, { input }: { input: any }, { res }: { res: Response }) => {
+    async registerUser(_: any, args: { username: string; email: string; password: string; }, context: any) {
       try {
-        const user = await User.create(input);
+        const user = await User.create(args);
+
         const token = signToken(user._id as Types.ObjectId);
+        if (context.res) {
+          context.res.cookie('book_app_token', token, {
+            httpOnly: true,
+            secure: process.env.PORT ? true : false,
+            sameSite: true
+          });
+        } else {
+          throw new GraphQLError('Response object is not available in context');
+        }
 
-        res.cookie('book_app_token', token, {
-          httpOnly: true,
-          secure: process.env.PORT ? true : false,
-          sameSite: true
-        });
-
-        return { user };
+        return {
+          user: user,
+          message: 'User registered successfully'
+        };
       } catch (error: any) {
         const errorMessage = getErrorMessage(error);
 
-        return {
-          message: errorMessage
-        };
+        throw new GraphQLError(errorMessage);
       }
     },
     loginUser: async (_: any, { input }: { input: any }, { res }: { res: Response }) => {
