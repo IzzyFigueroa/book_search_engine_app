@@ -48,14 +48,14 @@ const auth_resolvers = {
                 throw new GraphQLError(errorMessage);
             }
         },
-        loginUser: async (_, { input }, { res }) => {
+        loginUser: async (_, input, { res }) => {
             const user = await User.findOne({ email: input.email });
             if (!user) {
-                return { message: "No user found with that email address" };
+                throw new GraphQLError("No user found with that email address");
             }
             const valid_pass = await user.validatePassword(input.password);
             if (!valid_pass) {
-                return { message: 'Wrong password!' };
+                throw new GraphQLError("Incorrect password");
             }
             const token = signToken(user._id);
             res.cookie('book_app_token', token, {

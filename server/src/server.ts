@@ -11,6 +11,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import typeDefs from './schema/typeDefs.js';
 import user_resolvers from './schema/resolvers/user_resolvers.js';
 import auth_resolvers from './schema/resolvers/auth_resolvers.js';
+import { authenticate } from './services/auth.js';
 
 const resolvers = {
   ...user_resolvers,
@@ -48,9 +49,8 @@ db.once('open', async () => {
   app.use(
     '/graphql',
     expressMiddleware(server, {
-      context: async ({ req }) => ({ req, token: req.headers.token }),
-    })
-  );
+      context: authenticate
+}))
 
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });

@@ -58,17 +58,18 @@ const auth_resolvers = {
         throw new GraphQLError(errorMessage);
       }
     },
-    loginUser: async (_: any, { input }: { input: any }, { res }: { res: Response }) => {
+    loginUser: async (_: any,  input: {email: string; password: string}, { res }: { res: Response }) => {
       const user = await User.findOne({ email: input.email });
 
       if (!user) {
-        return { message: "No user found with that email address" };
-      }
+        throw new GraphQLError("No user found with that email address" );
+        }
+      
 
       const valid_pass = await user.validatePassword(input.password);
 
       if (!valid_pass) {
-        return { message: 'Wrong password!' };
+        throw new GraphQLError("Incorrect password" );
       }
 
       const token = signToken(user._id as Types.ObjectId);
