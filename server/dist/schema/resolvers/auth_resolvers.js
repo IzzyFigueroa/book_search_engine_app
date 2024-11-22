@@ -1,7 +1,10 @@
+// import type { Request, Response } from 'express';
+import dotenv from 'dotenv';
 import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
+dotenv.config();
 // const { sign } = jwt;
 const auth_resolvers = {
     Query: {
@@ -59,7 +62,9 @@ const auth_resolvers = {
                 secure: process.env.PORT ? true : false,
                 sameSite: true
             });
-            return user;
+            return {
+                user: user
+            };
         },
         logoutUser: async (_, __, context) => {
             context.res.clearCookie('book_app_token');

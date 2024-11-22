@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { StrictMode } from 'react';
+import { createBrowserRouter, BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client'
 import { onError } from '@apollo/client/link/error';
@@ -21,10 +22,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     console.log(`[Network error]: ${networkError}`);
   }
 });
+const link = from([
+  errorLink,
+  new HttpLink({ uri: '/graphql' })
+]);
 
-const client = new ApolloClient({
-  link: from([errorLink, new HttpLink({ uri: '/graphql' })]),
-  uri: '/graphql',
+export const client = new ApolloClient({
+  link, 
   cache: new InMemoryCache(),
 });
 
@@ -56,12 +60,18 @@ const router = createBrowserRouter([
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ApolloProvider client={client}>
-    <StoreProvider>
-      <RouterProvider router={router} future={{
-        // Router optional flag to get rid of future update warnings
-        v7_startTransition: true
-      }} />
-    </StoreProvider>
-  </ApolloProvider>
+  <StrictMode>
+    <ApolloProvider client={client}>
+      <StoreProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route index element={<SearchBooks />}/>
+              <Route path="saved" element={<SavedBooks />}/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </StoreProvider>
+    </ApolloProvider>
+  </StrictMode>
 )

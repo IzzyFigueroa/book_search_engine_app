@@ -1,8 +1,9 @@
 import type { Request, Response } from 'express';
-
+import dotenv from 'dotenv'
 import {Types} from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+dotenv.config()
 
 const { sign, verify } = jwt;
 
@@ -45,7 +46,7 @@ export const signToken = (user_id: Types.ObjectId) => {
 /* 
   Route middleware function that blocks an unauthenticated user from triggering a route and attaches the user_id to the req object
 */
-export const authenticate = async ({req , res}: {req:Request, res: Response} )=> {
+export const authenticate = async ({req , res}: {req: Request, res: Response} )=> {
   // Get the user's id from the request cookie
   const user_id = getUserId(req);
 

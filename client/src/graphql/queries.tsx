@@ -6,8 +6,6 @@ export const GET_USER = gql`
             user {
                 _id
             username
-            email
-
             }
         }
     }
@@ -16,11 +14,12 @@ export const GET_USER = gql`
 export const GET_USER_BOOKS = gql`
     query getUserBooks {
         getUserBooks {
-            googleBookId
+            googleBookId {
             authors
             description
             image
             title
+            }
         }
     }
 `;

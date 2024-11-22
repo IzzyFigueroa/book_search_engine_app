@@ -1,5 +1,5 @@
 // import type { Request, Response } from 'express';
-// import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
 import { Types } from 'mongoose';
 import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
@@ -7,12 +7,13 @@ import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
 import Context from '../../interfaces/Context.js';
 
+dotenv.config()
 
 // const { sign } = jwt;
 
 const auth_resolvers = {
   Query: {
-    async getUser (_: any, __: any, context: Context) {
+    async getUser(_: any, __: any, context: Context) {
       const user_id = context.req.user.id;
 
       if (!user_id) {
@@ -59,36 +60,38 @@ const auth_resolvers = {
       }
     },
     async loginUser(_: any, args: { email: string; password: string }, context: Context) {
-  const user = await User.findOne({ email: args.email });
+      const user = await User.findOne({ email: args.email });
 
-  if (!user) {
-    throw new GraphQLError("No user found with that email address");
-  }
+      if (!user) {
+        throw new GraphQLError("No user found with that email address");
+      }
 
 
-  const valid_pass = await user.validatePassword(args.password);
+      const valid_pass = await user.validatePassword(args.password);
 
-  if (!valid_pass) {
-    throw new GraphQLError("Incorrect password");
-  }
+      if (!valid_pass) {
+        throw new GraphQLError("Incorrect password");
+      }
 
-  const token = signToken(user._id as Types.ObjectId);
+      const token = signToken(user._id as Types.ObjectId);
 
-  context.res.cookie('book_app_token', token, {
-    httpOnly: true,
-    secure: process.env.PORT ? true : false,
-    sameSite: true
-  });
+      context.res.cookie('book_app_token', token, {
+        httpOnly: true,
+        secure: process.env.PORT ? true : false,
+        sameSite: true
+      });
 
-  return user
-},
-logoutUser: async (_: any, __: any, context: Context) => {
-  context.res.clearCookie('book_app_token');
-  return {
-    user: null,
-    message: 'Logged out successfully!'
-  };
-}
+      return {
+        user: user
+      }
+    },
+    logoutUser: async (_: any, __: any, context: Context) => {
+      context.res.clearCookie('book_app_token');
+      return {
+        user: null,
+        message: 'Logged out successfully!'
+      };
+    }
   }
 };
 

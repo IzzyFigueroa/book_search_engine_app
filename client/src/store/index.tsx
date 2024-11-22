@@ -25,10 +25,10 @@ const initialState = {
 
 export function StoreProvider(props: StoreProviderProps) {
   const [state, setState] = useState(initialState);
-  const { data } = useQuery(GET_USER);
+  const { data, loading } = useQuery(GET_USER);
 
   useEffect(() => {
-    if (data) {
+    if (!loading) {
       setState({
         ...state,
         loading: false,
