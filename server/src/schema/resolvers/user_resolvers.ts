@@ -6,7 +6,6 @@ import Context from '../../interfaces/Context.js';
 
 const user_resolvers = {
   Query: {
-    Query: {
       // Get User Books
       async getUserBooks(_: any, __: any, context: Context) {
         const user_id = context.req.user_id
@@ -65,6 +64,6 @@ const user_resolvers = {
       }
     }
   }
-};
+
 
 export default user_resolvers;
