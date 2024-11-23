@@ -39,10 +39,12 @@ const AuthForm = ({ isLogin, handleModalClose }: { handleModalClose: () => void;
         variables: formData
       });
 
-      setState((oldState) => ({
-        ...oldState,
-        user: res.data[prop].user
-      }));
+      
+        setState((oldState) => ({
+          ...oldState,
+          user: res.data[prop].user
+        }));
+     
 
       setFormData({ ...initialFormData });
       handleModalClose();
@@ -64,6 +66,7 @@ const AuthForm = ({ isLogin, handleModalClose }: { handleModalClose: () => void;
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           {formData.errorMessage}
         </Alert>
+
         {!isLogin && (
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='username'>Username</Form.Label>
@@ -78,6 +81,7 @@ const AuthForm = ({ isLogin, handleModalClose }: { handleModalClose: () => void;
             <Form.Control.Feedback type='invalid'>Username is required!</Form.Control.Feedback>
           </Form.Group>
         )}
+
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
@@ -90,6 +94,7 @@ const AuthForm = ({ isLogin, handleModalClose }: { handleModalClose: () => void;
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
         </Form.Group>
+
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
@@ -112,4 +117,5 @@ const AuthForm = ({ isLogin, handleModalClose }: { handleModalClose: () => void;
     </>
   );
 };
+
 export default AuthForm;

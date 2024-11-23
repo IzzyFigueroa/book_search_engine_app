@@ -1,9 +1,7 @@
 import type { Request, Response } from 'express';
-import dotenv from 'dotenv'
 import {Types} from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-dotenv.config()
 
 const { sign, verify } = jwt;
 

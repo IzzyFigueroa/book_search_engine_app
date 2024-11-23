@@ -18,7 +18,6 @@ export const GET_USER_BOOKS = gql`
             authors
             description
             image
-            title
             }
         }
     }

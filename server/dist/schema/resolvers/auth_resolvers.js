@@ -1,15 +1,13 @@
-// import type { Request, Response } from 'express';
-import dotenv from 'dotenv';
 import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
-dotenv.config();
+// dotenv.config()
 // const { sign } = jwt;
 const auth_resolvers = {
     Query: {
         async getUser(_, __, context) {
-            const user_id = context.req.user.id;
+            const user_id = context.req.user_id;
             if (!user_id) {
                 return {
                     user: null

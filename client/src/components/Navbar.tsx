@@ -5,15 +5,21 @@ import AuthForm from './AuthForm';
 import { useStore } from '../store';
 import { useMutation } from '@apollo/client';
 import { LOGOUT_USER } from '../graphql/mutations';
+import {client} from '../main.tsx'
 
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
   const {state, setState} = useStore()!;
   const navigate = useNavigate();
-  const [logoutUser] = useMutation(LOGOUT_USER);
+  const [logoutUser] = useMutation(LOGOUT_USER, {
+    onCompleted() {
+      client.clearStore();
+    }
+  });
 
-  const handleLogout = async () => {
+  const handleLogout = async (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.preventDefault();
     await logoutUser();
 
     setState((oldState) => ({

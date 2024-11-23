@@ -1,7 +1,7 @@
 const gql = String.raw;
 const typeDefs = gql `
     type Book {
-        googleBookId: String!
+        googleBookId: String
         authors: [String]
         description: String
         title: String
@@ -11,8 +11,8 @@ const typeDefs = gql `
 
     type User {
         _id: ID!
-        username: String!
-        email: String!
+        username: String
+        email: String
         bookCount: Int
         savedBooks: [Book]
     }
@@ -36,10 +36,10 @@ const typeDefs = gql `
     }
 
     type Mutation {
-        registerUser(username: String!, email: String!, password: String!): Response
-        loginUser(email: String!, password: String!): Response
+        registerUser(username: String, email: String, password: String): Response
+        loginUser(email: String, password: String): Response
         logoutUser: Response
-        saveBook(book: BookInput!): Response
+        saveBook(book: BookInput): Response
         deleteBook(googleBookId: ID): Response
     }
 `;

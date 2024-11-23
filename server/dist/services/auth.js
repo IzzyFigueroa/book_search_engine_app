@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-dotenv.config();
 const { sign, verify } = jwt;
 /*
   Function that pulls the token cookie from the client request and returns the user's id

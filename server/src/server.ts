@@ -26,10 +26,12 @@ const server = new ApolloServer({
   resolvers,
 });
 
-app.use(express.urlencoded({ extended: true }));
+
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Give routes access to req.cookies
 app.use(cookieParser());
+
 
 
 
@@ -43,19 +45,17 @@ if (process.env.PORT) {
   })
 }
 
+
 db.once('open', async () => {
   await server.start();
 
   app.use(
     '/graphql',
+    // load this after server start
     expressMiddleware(server, {
-      context: authenticate
-}))
+      context: authenticate,
+    })
+  );
 
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });
-
-
-
-
-
