@@ -1,4 +1,6 @@
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+dotenv.config();
 const { sign, verify } = jwt;
 /*
   Function that pulls the token cookie from the client request and returns the user's id
@@ -38,6 +40,6 @@ export const authenticate = async ({ req, res }) => {
         req.user_id = user_id;
     }
     // Attach the user's id to the request object
-    return { req: req, res: res };
+    return { req, res };
     // Call the next route callback function
 };

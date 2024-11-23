@@ -40,36 +40,16 @@ export const SAVE_BOOK = gql`
     mutation SaveBook($book: BookInput) {
       saveBook(book: $book) {
           message
-        # _id
-        # username
-        # email
-        # savedBooks {
-        #   bookId
-        #   authors
-        #   description
-        #   title
-        #   image
-        #   link
-        # }
+      
       }
     }
 `;
 
 export const DELETE_BOOK = gql`
-    mutation DeleteBook($bookId: ID!) {
+    mutation DeleteBook($googleBookId: ID) {
       deleteBook(googleBookId: $googleBookId) {
         message
-        # _id
-        # username
-        # email
-        # savedBooks {
-        #   bookId
-        #   authors
-        #   description
-        #   title
-        #   image
-        #   link
-        # }
+      
       }
     }
 `;

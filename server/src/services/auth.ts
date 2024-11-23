@@ -1,7 +1,9 @@
 import type { Request, Response } from 'express';
+import dotenv from 'dotenv'
 import {Types} from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+dotenv.config()
 
 const { sign, verify } = jwt;
 
@@ -13,7 +15,7 @@ interface JwtPayload {
   Function that pulls the token cookie from the client request and returns the user's id
   We seperate this function so we can use it for route callbacks or basic controller implentation (ie. getUser in auth_controller)
 */
-export const getUserId = (req: any) => {
+export const getUserId = (req: Request) => {
   const token = req.cookies?.book_app_token;
 
   if (!token) return false;
@@ -56,7 +58,7 @@ export const authenticate = async ({req , res}: {req: Request, res: Response} )=
 
  
   // Attach the user's id to the request object
-  return{req: req , res:res};
+  return{req, res};
 
   // Call the next route callback function
 

@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { StrictMode } from 'react';
-import { createBrowserRouter, BrowserRouter, Route, Routes } from 'react-router-dom'
+import {  BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client'
 import { onError } from '@apollo/client/link/error';
