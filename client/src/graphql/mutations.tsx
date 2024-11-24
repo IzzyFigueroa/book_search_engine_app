@@ -2,13 +2,11 @@ import { gql } from '@apollo/client';
 
 // Auth Mutations
 export const REGISTER_USER = gql`
-mutation RegisterUser($username: String, $email: String, $password: String) {
+mutation RegisterUser($username: String!, $email: String!, $password: String!) {
   registerUser(username: $username, email: $email, password: $password) {
-    message
     user {
-      _id
       username
-      
+      _id
     }
   }
 }
@@ -16,13 +14,11 @@ mutation RegisterUser($username: String, $email: String, $password: String) {
 
 
 export const LOGIN_USER = gql`
-  mutation LoginUser($email: String, $password: String) {
+ mutation LoginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {
-    message
     user {
-      _id
       username
-      
+      _id
     }
   }
 }

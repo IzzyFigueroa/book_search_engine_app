@@ -12,6 +12,17 @@ interface JwtPayload {
   user_id: Types.ObjectId;
 }
 
+export const signToken = (user_id: Types.ObjectId) => {
+  try {
+    const token = sign({ user_id }, process.env.JWT_SECRET!, { expiresIn: '12h' });
+    
+    return token;
+  } catch (error) {
+    console.log('JWT TOKEN CREATION ERROR(signToken)', error);
+    return false;
+  }
+};
+
 export const getUserId = (req: any) => {
   const token = req.cookies?.book_app_token;
 
@@ -29,16 +40,7 @@ export const getUserId = (req: any) => {
   }
 }
 
-export const signToken = (user_id: Types.ObjectId) => {
-  try {
-    const token = sign({ user_id }, process.env.JWT_SECRET!, { expiresIn: '12h' });
-    
-    return token;
-  } catch (error) {
-    console.log('JWT TOKEN CREATION ERROR(signToken)', error);
-    return false;
-  }
-};
+
 
 /* 
   Route middleware function that blocks an unauthenticated user from triggering a route and attaches the user_id to the req object

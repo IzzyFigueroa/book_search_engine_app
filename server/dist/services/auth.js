@@ -2,6 +2,16 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 dotenv.config();
 const { sign, verify } = jwt;
+export const signToken = (user_id) => {
+    try {
+        const token = sign({ user_id }, process.env.JWT_SECRET, { expiresIn: '12h' });
+        return token;
+    }
+    catch (error) {
+        console.log('JWT TOKEN CREATION ERROR(signToken)', error);
+        return false;
+    }
+};
 export const getUserId = (req) => {
     const token = req.cookies?.book_app_token;
     if (!token)
@@ -13,16 +23,6 @@ export const getUserId = (req) => {
     catch (error) {
         console.log('JWT VERIFICATON ERROR(auth.ts->getUserId)', error.message);
         return null;
-    }
-};
-export const signToken = (user_id) => {
-    try {
-        const token = sign({ user_id }, process.env.JWT_SECRET, { expiresIn: '12h' });
-        return token;
-    }
-    catch (error) {
-        console.log('JWT TOKEN CREATION ERROR(signToken)', error);
-        return false;
     }
 };
 /*
