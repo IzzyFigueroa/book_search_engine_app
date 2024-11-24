@@ -2,10 +2,6 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 dotenv.config();
 const { sign, verify } = jwt;
-/*
-  Function that pulls the token cookie from the client request and returns the user's id
-  We seperate this function so we can use it for route callbacks or basic controller implentation (ie. getUser in auth_controller)
-*/
 export const getUserId = (req) => {
     const token = req.cookies?.book_app_token;
     if (!token)

@@ -1,8 +1,8 @@
 import express from 'express';
-import path from 'node:path';
-import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config();
+import path from 'node:path';
+import cookieParser from 'cookie-parser';
 import db from './config/connection.js';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
