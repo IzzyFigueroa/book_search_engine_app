@@ -83,7 +83,7 @@ const auth_resolvers = {
 
       return {
         user: user
-      }
+      };
     },
     logoutUser: async (_: any, __: any, context: Context) => {
       context.res.clearCookie('book_app_token');

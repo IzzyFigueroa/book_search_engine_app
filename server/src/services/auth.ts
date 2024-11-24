@@ -12,10 +12,10 @@ interface JwtPayload {
   user_id: Types.ObjectId;
 }
 
-export const getUserId = (req: Request) => {
+export const getUserId = (req: any) => {
   const token = req.cookies?.book_app_token;
 
-  if (!token) return false;
+  if (!token) return null;
 
   try {
     const { user_id } = verify(token, process.env.JWT_SECRET!) as JwtPayload;
@@ -25,7 +25,7 @@ export const getUserId = (req: Request) => {
   } catch (error: any) {
     console.log('JWT VERIFICATON ERROR(auth.ts->getUserId)', error.message);
 
-    return false;
+    return null;
   }
 }
 
@@ -35,7 +35,7 @@ export const signToken = (user_id: Types.ObjectId) => {
     
     return token;
   } catch (error) {
-    console.log('JTW TOKEN CREATION ERROR(signToken)', error);
+    console.log('JWT TOKEN CREATION ERROR(signToken)', error);
     return false;
   }
 };
@@ -48,9 +48,8 @@ export const authenticate = async ({req , res}: {req: Request, res: Response} )=
   const user_id = getUserId(req);
 
   // If they don't have a cookie or valid JWT, they are not authorized
-  if (user_id) {
-    req.user_id = user_id
-   
+  if (user_id !== null) {
+    req.user_id = user_id;
   }
 
  

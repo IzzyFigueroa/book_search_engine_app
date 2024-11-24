@@ -11,22 +11,21 @@ import db from './config/connection.js';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import typeDefs from './schema/typeDefs.js';
-import user_resolvers from './schema/resolvers/user_resolvers.js';
-import auth_resolvers from './schema/resolvers/auth_resolvers.js';
+import resolvers from './schema/resolvers.js';
+// import user_resolvers from './schema/resolvers/user_resolvers.js';
+// import auth_resolvers from './schema/resolvers/auth_resolvers.js';
 import { authenticate } from './services/auth.js';
 
-const resolvers = {
-  ...user_resolvers,
-  ...auth_resolvers,
-};
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+  
+  
+});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
 
 
 // app.use(express.urlencoded({ extended: true }));
