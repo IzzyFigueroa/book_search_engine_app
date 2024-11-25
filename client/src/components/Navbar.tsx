@@ -8,7 +8,7 @@ import { LOGOUT_USER } from '../graphql/mutations';
 import {client} from '../main.tsx'
 
 const AppNavbar = () => {
-  // set modal display state
+ 
   const [showModal, setShowModal] = useState(false);
   const {state, setState} = useStore()!;
   const navigate = useNavigate();

@@ -1,15 +1,10 @@
-// import type { Request, Response } from 'express';
-// import dotenv from 'dotenv'
+
 import { Types } from 'mongoose';
 import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
 import Context from '../../interfaces/Context.js';
-
-// dotenv.config()
-
-// const { sign } = jwt;
 
 const auth_resolvers = {
   Query: {

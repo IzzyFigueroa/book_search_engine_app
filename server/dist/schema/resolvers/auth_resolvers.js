@@ -2,8 +2,6 @@ import User from '../../models/User.js';
 import { signToken } from '../../services/auth.js';
 import { getErrorMessage } from '../../helpers/index.js';
 import { GraphQLError } from 'graphql';
-// dotenv.config()
-// const { sign } = jwt;
 const auth_resolvers = {
     Query: {
         async getUser(_, __, context) {
