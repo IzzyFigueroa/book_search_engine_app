@@ -18,7 +18,11 @@
  Please contact me at izzyfigueroa6@gmail.com
 
 ## Description
- This is a README.md for the Book Search Engine Application. This is an application so that users can create an account, search for books and add them to there saved books.
+This is a README.md for the Book Search Engine Application. This is an application so that users can create an account, search for books and add them to their saved books. They can also delete books from their saved books.
+
+## Images
+![Book Search](./client/images/booksearch.png)
+![Book Delete](./client/images/bookdelete.png)
 
 ## Installation
  Users just need to use url
